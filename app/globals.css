@@ -1,0 +1,285 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.container {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  padding: 40px;
+  max-width: 600px;
+  width: 100%;
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 30px;
+  text-align: center;
+  font-size: 2em;
+}
+
+.input-group {
+  margin-bottom: 25px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: #555;
+  font-weight: 500;
+  font-size: 0.95em;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.currency-symbol {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  font-weight: 500;
+}
+
+input[type="number"] {
+  width: 100%;
+  padding: 12px 15px 12px 40px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 1em;
+  transition: all 0.3s ease;
+  background: #f9f9f9;
+}
+
+input[type="number"]:focus {
+  outline: none;
+  border-color: #667eea;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.tier-input {
+  width: 100%;
+  padding: 10px 15px 10px 40px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.95em;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.tier-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.results {
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 2px solid #f0f0f0;
+}
+
+.result-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.result-item:last-child {
+  border-bottom: none;
+}
+
+.result-label {
+  color: #666;
+  font-size: 1em;
+}
+
+.result-value {
+  font-size: 1.3em;
+  font-weight: 600;
+  color: #333;
+}
+
+.result-value.positive {
+  color: #10b981;
+}
+
+.result-value.negative {
+  color: #ef4444;
+}
+
+.profit-highlight {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 15px;
+  padding: 25px;
+  margin-top: 20px;
+}
+
+.profit-highlight .result-label {
+  color: white;
+  font-size: 1.1em;
+}
+
+.profit-highlight .result-value {
+  color: white;
+  font-size: 2em;
+}
+
+.info-text {
+  color: #888;
+  font-size: 0.85em;
+  margin-top: 5px;
+  font-style: italic;
+}
+
+.rate-section {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 25px;
+}
+
+.rate-section h2 {
+  color: #333;
+  font-size: 1.1em;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.rate-tier {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 12px;
+}
+
+.rate-tier:last-child {
+  margin-bottom: 0;
+}
+
+.tier-label {
+  min-width: 120px;
+  color: #666;
+  font-size: 0.9em;
+}
+
+.tier-input-wrapper {
+  flex: 1;
+  position: relative;
+}
+
+.breakdown {
+  background: #f0f7ff;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 20px;
+  font-size: 0.9em;
+}
+
+.breakdown-title {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.breakdown-item {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 15px;
+  padding: 5px 0;
+  color: #666;
+  align-items: center;
+}
+
+.breakdown-item span:last-child {
+  font-weight: 600;
+  color: #333;
+}
+
+.rates-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.rates-table thead {
+  background: #f8f9fa;
+}
+
+.rates-table th {
+  padding: 12px;
+  text-align: left;
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9em;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.rates-table td {
+  padding: 12px;
+  border-bottom: 1px solid #f0f0f0;
+  color: #666;
+}
+
+.rates-table tbody tr:hover {
+  background: #f9f9f9;
+}
+
+.rates-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.rates-table .cost-cell {
+  font-weight: 600;
+  color: #333;
+  text-align: right;
+}
+
+.developer-section-group {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 25px;
+}
+
+.retainer-cost-display {
+  background: #fff;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 12px 15px;
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.retainer-cost-label {
+  color: #666;
+  font-weight: 500;
+  font-size: 0.95em;
+}
+
+.retainer-cost-value {
+  color: #333;
+  font-weight: 600;
+  font-size: 1.1em;
+}
+
+

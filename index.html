@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retainer Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 2em;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .currency-symbol {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            font-weight: 500;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 12px 15px 12px 40px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            background: #f9f9f9;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .tier-input {
+            width: 100%;
+            padding: 10px 15px 10px 40px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .tier-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .results {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #f0f0f0;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .result-label {
+            color: #666;
+            font-size: 1em;
+        }
+
+        .result-value {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .result-value.positive {
+            color: #10b981;
+        }
+
+        .result-value.negative {
+            color: #ef4444;
+        }
+
+        .profit-highlight {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+
+        .profit-highlight .result-label {
+            color: white;
+            font-size: 1.1em;
+        }
+
+        .profit-highlight .result-value {
+            color: white;
+            font-size: 2em;
+        }
+
+        .info-text {
+            color: #888;
+            font-size: 0.85em;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .rate-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .rate-section h2 {
+            color: #333;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .rate-tier {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 12px;
+        }
+
+        .rate-tier:last-child {
+            margin-bottom: 0;
+        }
+
+        .tier-label {
+            min-width: 120px;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .tier-input-wrapper {
+            flex: 1;
+            position: relative;
+        }
+
+        .breakdown {
+            background: #f0f7ff;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+
+        .breakdown-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            color: #666;
+        }
+
+        .developer-section-group {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .retainer-cost-display {
+            background: #fff;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .retainer-cost-label {
+            color: #666;
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+
+        .retainer-cost-value {
+            color: #333;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💰 Retainer Calculator</h1>
+        
+        <div class="input-group">
+            <label for="retainer">Basic Retainer Fee (per month)</label>
+            <div class="input-wrapper">
+                <span class="currency-symbol">€</span>
+                <input type="number" id="retainer" value="1000" min="0" step="0.01">
+            </div>
+            <div class="info-text">Fixed monthly payment regardless of hours</div>
+        </div>
+
+        <div class="input-group">
+            <label for="hours">Number of Hours (per month)</label>
+            <div class="input-wrapper">
+                <input type="number" id="hours" value="20" min="0" step="0.1">
+            </div>
+        </div>
+
+        <div class="rate-section">
+            <h2>Client Hourly Rates (Charged to Client)</h2>
+            <div class="rate-tier">
+                <span class="tier-label">0 - 20 hours:</span>
+                <div class="tier-input-wrapper">
+                    <span class="currency-symbol">€</span>
+                    <input type="number" id="clientRate1" value="110" min="0" step="0.01" class="tier-input">
+                </div>
+            </div>
+            <div class="rate-tier">
+                <span class="tier-label">20 - 40 hours:</span>
+                <div class="tier-input-wrapper">
+                    <span class="currency-symbol">€</span>
+                    <input type="number" id="clientRate2" value="80" min="0" step="0.01" class="tier-input">
+                </div>
+            </div>
+            <div class="rate-tier">
+                <span class="tier-label">Above 40 hours:</span>
+                <div class="tier-input-wrapper">
+                    <span class="currency-symbol">€</span>
+                    <input type="number" id="clientRate3" value="65" min="0" step="0.01" class="tier-input">
+                </div>
+            </div>
+        </div>
+
+        <div class="developer-section-group">
+            <div class="rate-section" style="background: transparent; padding: 0; margin-bottom: 20px;">
+                <h2>Developer Retainer (Fixed Cost)</h2>
+                <div class="rate-tier">
+                    <span class="tier-label">Retainer Hours:</span>
+                    <div class="tier-input-wrapper">
+                        <input type="number" id="developerRetainerHours" value="20" min="0" step="0.1" class="tier-input" style="padding-left: 15px;">
+                    </div>
+                </div>
+                <div class="rate-tier">
+                    <span class="tier-label">Retainer Rate:</span>
+                    <div class="tier-input-wrapper">
+                        <span class="currency-symbol">€</span>
+                        <input type="number" id="developerRetainerRate" value="75" min="0" step="0.01" class="tier-input">
+                    </div>
+                </div>
+                <div class="retainer-cost-display">
+                    <span class="retainer-cost-label">Fixed Retainer Cost:</span>
+                    <span class="retainer-cost-value" id="developerRetainerCost">€1,500.00</span>
+                </div>
+                <div class="info-text" style="margin-top: 10px;">Fixed monthly cost regardless of hours worked</div>
+            </div>
+
+            <div class="rate-section" style="background: transparent; padding: 0; margin-bottom: 0;">
+                <h2>Developer Hourly Rates (For Hours Beyond Retainer)</h2>
+                <div class="rate-tier">
+                    <span class="tier-label">0 - 20 hours:</span>
+                    <div class="tier-input-wrapper">
+                        <span class="currency-symbol">€</span>
+                        <input type="number" id="developerRate1" value="75" min="0" step="0.01" class="tier-input">
+                    </div>
+                </div>
+                <div class="rate-tier">
+                    <span class="tier-label">20 - 40 hours:</span>
+                    <div class="tier-input-wrapper">
+                        <span class="currency-symbol">€</span>
+                        <input type="number" id="developerRate2" value="65" min="0" step="0.01" class="tier-input">
+                    </div>
+                </div>
+                <div class="rate-tier">
+                    <span class="tier-label">Above 40 hours:</span>
+                    <div class="tier-input-wrapper">
+                        <span class="currency-symbol">€</span>
+                        <input type="number" id="developerRate3" value="50" min="0" step="0.01" class="tier-input">
+                    </div>
+                </div>
+                <div class="info-text" style="margin-top: 10px;">Applied to hours beyond retainer based on total hours worked</div>
+            </div>
+        </div>
+
+        <div class="results">
+            <div class="breakdown">
+                <div class="breakdown-title">Hour Breakdown</div>
+                <div class="breakdown-item">
+                    <span>0-20 hours:</span>
+                    <span id="hoursTier1">0</span>
+                </div>
+                <div class="breakdown-item">
+                    <span>20-40 hours:</span>
+                    <span id="hoursTier2">0</span>
+                </div>
+                <div class="breakdown-item">
+                    <span>Above 40 hours:</span>
+                    <span id="hoursTier3">0</span>
+                </div>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Revenue from Hours</span>
+                <span class="result-value" id="revenueHours">€0.00</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Total Revenue</span>
+                <span class="result-value" id="totalRevenue">€0.00</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Total Cost</span>
+                <span class="result-value" id="totalCost">€0.00</span>
+            </div>
+            <div class="profit-highlight">
+                <div class="result-item" style="border-bottom: none; padding: 0;">
+                    <span class="result-label">Profit</span>
+                    <span class="result-value" id="profit">€0.00</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get all input elements
+        const retainerInput = document.getElementById('retainer');
+        const hoursInput = document.getElementById('hours');
+        
+        // Developer retainer inputs
+        const developerRetainerHoursInput = document.getElementById('developerRetainerHours');
+        const developerRetainerRateInput = document.getElementById('developerRetainerRate');
+        
+        // Client rate inputs
+        const clientRate1Input = document.getElementById('clientRate1');
+        const clientRate2Input = document.getElementById('clientRate2');
+        const clientRate3Input = document.getElementById('clientRate3');
+        
+        // Developer rate inputs (for hours beyond retainer)
+        const developerRate1Input = document.getElementById('developerRate1');
+        const developerRate2Input = document.getElementById('developerRate2');
+        const developerRate3Input = document.getElementById('developerRate3');
+
+        // Get all result elements
+        const developerRetainerCostEl = document.getElementById('developerRetainerCost');
+        const hoursTier1El = document.getElementById('hoursTier1');
+        const hoursTier2El = document.getElementById('hoursTier2');
+        const hoursTier3El = document.getElementById('hoursTier3');
+        const revenueHoursEl = document.getElementById('revenueHours');
+        const totalRevenueEl = document.getElementById('totalRevenue');
+        const totalCostEl = document.getElementById('totalCost');
+        const profitEl = document.getElementById('profit');
+
+        // Function to format currency
+        function formatCurrency(value) {
+            return '€' + value.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+
+        // Function to calculate tiered revenue
+        function calculateTieredRevenue(hours, rate1, rate2, rate3) {
+            let revenue = 0;
+            
+            if (hours <= 20) {
+                revenue = hours * rate1;
+            } else if (hours <= 40) {
+                revenue = (20 * rate1) + ((hours - 20) * rate2);
+            } else {
+                revenue = (20 * rate1) + (20 * rate2) + ((hours - 40) * rate3);
+            }
+            
+            return revenue;
+        }
+
+        // Function to calculate tiered cost with fixed retainer
+        function calculateTieredCost(hours, retainerHours, retainerRate, rate1, rate2, rate3) {
+            // Fixed retainer cost (always paid)
+            const fixedRetainerCost = retainerHours * retainerRate;
+            
+            // If hours worked are within retainer, only pay retainer
+            if (hours <= retainerHours) {
+                return fixedRetainerCost;
+            }
+            
+            // Hours beyond retainer are charged at tiered rates based on total hours
+            let additionalCost = 0;
+            
+            if (hours <= 40) {
+                // Hours 20-40 are charged at tier 2 rate
+                const excessHours = hours - retainerHours;
+                additionalCost = excessHours * rate2;
+            } else {
+                // Hours 20-40 charged at tier 2, hours above 40 at tier 3
+                const hoursInTier2 = 40 - retainerHours;
+                const hoursInTier3 = hours - 40;
+                additionalCost = (hoursInTier2 * rate2) + (hoursInTier3 * rate3);
+            }
+            
+            return fixedRetainerCost + additionalCost;
+        }
+
+        // Function to get hour breakdown
+        function getHourBreakdown(hours) {
+            let tier1 = 0, tier2 = 0, tier3 = 0;
+            
+            if (hours <= 20) {
+                tier1 = hours;
+            } else if (hours <= 40) {
+                tier1 = 20;
+                tier2 = hours - 20;
+            } else {
+                tier1 = 20;
+                tier2 = 20;
+                tier3 = hours - 40;
+            }
+            
+            return { tier1, tier2, tier3 };
+        }
+
+        // Function to calculate and update results
+        function calculate() {
+            // Get values from inputs
+            const retainer = parseFloat(retainerInput.value) || 0;
+            const hours = parseFloat(hoursInput.value) || 0;
+            
+            // Get developer retainer values
+            const developerRetainerHours = parseFloat(developerRetainerHoursInput.value) || 0;
+            const developerRetainerRate = parseFloat(developerRetainerRateInput.value) || 0;
+            
+            // Calculate and display developer retainer cost
+            const developerRetainerCost = developerRetainerHours * developerRetainerRate;
+            developerRetainerCostEl.textContent = formatCurrency(developerRetainerCost);
+            
+            // Get client rates
+            const clientRate1 = parseFloat(clientRate1Input.value) || 0;
+            const clientRate2 = parseFloat(clientRate2Input.value) || 0;
+            const clientRate3 = parseFloat(clientRate3Input.value) || 0;
+            
+            // Get developer rates (for hours beyond retainer)
+            const developerRate1 = parseFloat(developerRate1Input.value) || 0;
+            const developerRate2 = parseFloat(developerRate2Input.value) || 0;
+            const developerRate3 = parseFloat(developerRate3Input.value) || 0;
+
+            // Calculate hour breakdown
+            const breakdown = getHourBreakdown(hours);
+            hoursTier1El.textContent = breakdown.tier1.toFixed(1) + ' hours';
+            hoursTier2El.textContent = breakdown.tier2.toFixed(1) + ' hours';
+            hoursTier3El.textContent = breakdown.tier3.toFixed(1) + ' hours';
+
+            // Calculate revenue from hours (tiered)
+            const revenueFromHours = calculateTieredRevenue(hours, clientRate1, clientRate2, clientRate3);
+
+            // Calculate total revenue (retainer + hours)
+            const totalRevenue = retainer + revenueFromHours;
+
+            // Calculate total cost (fixed developer retainer + tiered rates for excess hours)
+            const totalCost = calculateTieredCost(hours, developerRetainerHours, developerRetainerRate, developerRate1, developerRate2, developerRate3);
+
+            // Calculate profit
+            const profit = totalRevenue - totalCost;
+
+            // Update display
+            revenueHoursEl.textContent = formatCurrency(revenueFromHours);
+            totalRevenueEl.textContent = formatCurrency(totalRevenue);
+            totalCostEl.textContent = formatCurrency(totalCost);
+            
+            // Update profit with color coding
+            profitEl.textContent = formatCurrency(profit);
+            profitEl.className = 'result-value ' + (profit >= 0 ? 'positive' : 'negative');
+        }
+
+        // Add event listeners to all inputs
+        retainerInput.addEventListener('input', calculate);
+        hoursInput.addEventListener('input', calculate);
+        developerRetainerHoursInput.addEventListener('input', calculate);
+        developerRetainerRateInput.addEventListener('input', calculate);
+        clientRate1Input.addEventListener('input', calculate);
+        clientRate2Input.addEventListener('input', calculate);
+        clientRate3Input.addEventListener('input', calculate);
+        developerRate1Input.addEventListener('input', calculate);
+        developerRate2Input.addEventListener('input', calculate);
+        developerRate3Input.addEventListener('input', calculate);
+
+        // Initial calculation
+        calculate();
+    </script>
+</body>
+</html>
+

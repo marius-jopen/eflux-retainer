@@ -1,0 +1,13 @@
+{
+  "retainer": 750,
+  "hours": 20,
+  "developerRetainerHours": 20,
+  "developerRetainerRate": 75,
+  "clientRate1": 100,
+  "clientRate2": 90,
+  "clientRate3": 70,
+  "developerRate1": 75,
+  "developerRate2": 65,
+  "developerRate3": 50
+}
+
