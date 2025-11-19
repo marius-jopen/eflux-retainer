@@ -19,7 +19,7 @@ export default function Home() {
 
   return (
     <div className="container">
-      <h1>💰 Your Retainer Costs</h1>
+      <h1>Retainer Costs</h1>
 
       <div className="input-group" style={{ 
         background: 'linear-gradient(135deg, #667eea15 0%, #764ba215 100%)',
