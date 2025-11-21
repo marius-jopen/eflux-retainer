@@ -29,7 +29,7 @@ export default function Home() {
         marginBottom: '30px'
       }}>
         <label htmlFor="hours" style={{ fontSize: '1.1em', fontWeight: '600', color: '#333', marginBottom: '12px' }}>
-          ⚡ Number of Hours (per month)
+          Number of Hours (per month)
         </label>
         <div className="input-wrapper">
           <input
@@ -59,7 +59,7 @@ export default function Home() {
           />
         </div>
         <div className="info-text" style={{ marginTop: '8px', fontSize: '0.9em' }}>
-          💡 Change this number to see how it affects your costs. Minimum 20 hours per month.
+          Change this number to see how it affects your costs. Minimum 20 hours per month.
         </div>
       </div>
 
