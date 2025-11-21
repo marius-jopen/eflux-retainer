@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   calculateAll,
   formatCurrency,
@@ -8,8 +8,15 @@ import {
 } from '@/lib/calculations';
 import { defaultSettings } from '@/lib/settings';
 
-export default function Home() {
+export default function ClientPage() {
   const [inputs, setInputs] = useState<CalculationInputs>(defaultSettings);
+
+  useEffect(() => {
+    document.body.classList.add('client-page');
+    return () => {
+      document.body.classList.remove('client-page');
+    };
+  }, []);
 
   const results = calculateAll(inputs);
 

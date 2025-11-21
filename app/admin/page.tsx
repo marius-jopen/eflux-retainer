@@ -17,11 +17,19 @@ export default function AdminPage() {
   const [inputs, setInputs] = useState<CalculationInputs>(defaultSettings);
 
   useEffect(() => {
+    // Remove client-page class for admin styling
+    document.body.classList.remove('client-page');
+    
     // Check if already authenticated in sessionStorage
     const authStatus = sessionStorage.getItem('adminAuthenticated');
     if (authStatus === 'true') {
       setIsAuthenticated(true);
     }
+    
+    return () => {
+      // Restore client-page class when leaving admin
+      document.body.classList.add('client-page');
+    };
   }, []);
 
   const handlePasswordSubmit = (e: React.FormEvent) => {
